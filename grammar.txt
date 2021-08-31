@@ -1,7 +1,10 @@
-S = ABC
-A = abA'
-A' = A / #
-B = bB'
-B' = CB' / #
-C = cC'
-C' = C/#
+S~ABC
+A~abX
+X~A
+X~`
+B~bY
+Y~CY
+Y~`
+C~cZ
+Z~`
+Z~C

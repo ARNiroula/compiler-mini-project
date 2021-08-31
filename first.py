@@ -1,36 +1,40 @@
-import pprint
+from utils import insert
 
-f=open('grammar.txt','r')
-
-def is_terminal(str):
-    if str.islower() or str=='#':
-        return True
-    return False
-
-def is_nonterminal(str):
-    if str.isupper() and str != '#':
-        return True
-    return False
-    
-rules={}
-for x in f:
-    lhs,rhs=x.split('=')
-    lhs=str(lhs).strip()
-    rhs=str(rhs).strip()
-    if '/' in rhs:
-        rhs=rhs.split('/')
-        rhs[0]=rhs[0].strip()
-        rhs[-1]=rhs[-1].strip()
-    rules[lhs]=[rhs]
-
-
-# pprint.pprint(rules)
-
-first={}
-def first(rules):
-    keys=rules.keys()
-    # print(keys)
-    for keys,values in rules.items():
-        print(values)
-first(rules)
-
+def first(lhs, grammar, grammar_first):
+    rhs = grammar[lhs]
+    for i in rhs:
+        k = 0
+        flag = 0
+        current = []
+        confirm = 0
+        flog = 0
+        if(lhs in grammar and "`" in grammar_first[lhs]):
+            flog = 1
+        while(1):	
+            check = []
+            if(k>=len(i)):
+                if(len(current)==0 or flag == 1 or confirm == k or flog == 1):
+                    grammar_first = insert(grammar_first, lhs, "`")
+                break				
+            if(i[k].isupper()):
+                if(grammar_first[i[k]] == "null"):
+                    grammar_first = first(i[k], grammar, grammar_first)
+                   # print("state ", lhs, "i ", i, "k, ", k, grammar_first[i[k]])
+                for j in grammar_first[i[k]]:
+                    grammar_first = insert(grammar_first, lhs, j)
+                    check.append(j)
+            else:
+                grammar_first = insert(grammar_first, lhs, i[k])
+                check.append(i[k])
+            if(i[k]=="`"):
+                flag = 1
+            current.extend(check)
+            if("`" not in check):
+                if(flog == 1):
+                    grammar_first = insert(grammar_first, lhs, "`")
+                break
+            else:
+                confirm += 1
+                k+=1
+                grammar_first[lhs].remove("`")
+    return(grammar_first)

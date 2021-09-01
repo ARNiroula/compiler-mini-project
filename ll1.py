@@ -47,6 +47,7 @@ def parse(expr, parse_table, terminals, non_terminals):
         # if(orig_expr == matched and len(expr) == 1 ):
         #     break
         if(stack[0] == expr[0] and stack[0] == "$"):
+            flag=True
             break
         elif(stack[0] == expr[0]):
             if(matched == "-"):

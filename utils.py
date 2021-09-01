@@ -17,7 +17,7 @@ def show_dict(dictionary):
         print(key+"  :  ", end = "")
         for item in dictionary[key]:
             if(item == "`"):
-                print("Epsilon, ", end = "")
+                print("ε, ", end = "")
             else:
                 print(item+", ", end = "")
         print("\b\b")

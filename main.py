@@ -13,8 +13,9 @@ if __name__ == "__main__":
     # file_path = "grammar.txt"
 
     test_str = str(
-        input("Enter test string, terminals seperated by space eg abbcc\n"))
+        input("Enter test string, terminals seperated by space and appending $ eg abbcc\n"))
     # test_str = "abbcc"
+    test_str=test_str+'$'
     print()
 
     f = open(file_path)
@@ -69,8 +70,8 @@ if __name__ == "__main__":
 
     terminals.append("$")
 
-#print(non_terminals)
-#print(terminals)
+    print(non_terminals)
+    print(terminals)
 
     print("\n\n\n\n\t\t\t\t\t\t\tParse Table\n\n")
     parse_table = generate_parse_table(terminals, non_terminals, grammar, grammar_first, grammar_follow)

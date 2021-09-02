@@ -1,3 +1,5 @@
+from texttable import Texttable
+
 def isterminal(char):
     if(char.isupper() or char == "`"):
         return False
@@ -34,13 +36,12 @@ def get_rule(non_terminal, terminal, grammar, grammar_first):
                 return string
 
 def display_parse_table(parse_table, terminals, non_terminals):
-    print("\t\t\t\t",end = "")
-    for terminal in terminals:
-        print(terminal+"\t\t", end = "")
-    print("\n\n")
-    
+    print()
+    print("Parsing table:")
+    table = Texttable(max_width=0)
+    table.header([""]+terminals)
     for non_terminal in non_terminals:
-        print("\t\t"+non_terminal+"\t\t", end = "")
-        for terminal in terminals:
-            print(parse_table[non_terminals.index(non_terminal)][terminals.index(terminal)]+"\t\t", end = "")
-        print("\n")
+        row = [non_terminal] + parse_table[non_terminals.index(non_terminal)]
+        table.add_row(row)
+
+    print(table.draw())

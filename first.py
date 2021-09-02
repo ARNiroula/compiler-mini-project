@@ -19,7 +19,6 @@ def first(lhs, grammar, grammar_first):
             if(i[k].isupper()):
                 if(grammar_first[i[k]] == "null"):
                     grammar_first = first(i[k], grammar, grammar_first)
-                    # print("state ", lhs, "i ", i, "k, ", k, grammar_first[i[k]])
                 for j in grammar_first[i[k]]:
                     grammar_first = insert(grammar_first, lhs, j)
                     check.append(j)

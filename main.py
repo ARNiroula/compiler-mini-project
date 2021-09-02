@@ -1,11 +1,12 @@
 from collections import OrderedDict
+from pprint import pprint
 from utils import show_dict, isterminal, display_parse_table, insert
 from first import first
 from follow import follow
 from ll1 import generate_parse_table, parse
 from texttable import Texttable
 
-DEBUG_MODE = False
+DEBUG_MODE = True
 
 def readFile(file_path):
     f = open(file_path)
@@ -60,7 +61,7 @@ if __name__ == "__main__":
         if(grammar_first[lhs] == "null"):
             grammar_first = first(lhs, grammar, grammar_first)
             
-    print("\n\n\n")
+    print()
     print("First\n")
     show_dict(grammar_first)
 
@@ -70,7 +71,7 @@ if __name__ == "__main__":
         if(grammar_follow[lhs] == "null"):
             grammar_follow = follow(lhs, grammar, grammar_follow, start, grammar_first)
             
-    print("\n\n\n")
+    print()
     print("Follow\n")
     show_dict(grammar_follow)
 
@@ -78,12 +79,6 @@ if __name__ == "__main__":
     non_terminals = generateNonTerminals(grammar) 
     terminals = generateTerminals(grammar)
 
-    print(non_terminals)
-    print(terminals)
-
-    
-    table = Texttable(max_width=0)
-    table.header(["Parsing table"])
     parse_table = generate_parse_table(terminals, non_terminals, grammar, grammar_first, grammar_follow)
     display_parse_table(parse_table, terminals, non_terminals)
 
@@ -91,5 +86,6 @@ if __name__ == "__main__":
 #expr = input("Enter the expression ending with $ : ")
     expr = test_str
 
-    parse_table = generate_parse_table(terminals, non_terminals, grammar, grammar_first, grammar_follow)
+    print()
+    print("Parsing expression")
     parse(expr, parse_table, terminals, non_terminals)

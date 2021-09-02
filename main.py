@@ -1,53 +1,11 @@
-from collections import OrderedDict
 from pprint import pprint
-from utils import show_dict, isterminal, display_parse_table, insert
+from utils import *
 from first import first
 from follow import follow
 from ll1 import generate_parse_table, parse
 from texttable import Texttable
 
 DEBUG_MODE = True
-
-def readFile(file_path):
-    f = open(file_path)
-    g= OrderedDict()
-    g_first = OrderedDict()
-    g_follow = OrderedDict()
-    # iterate each line and generate grammar dictionary
-    for i in f:
-        # replace end line symbol
-        i = i.replace("\n", "")
-        lhs, rhs = i.split(sep="~")
-        g = insert(g, lhs, rhs)
-        g_first[lhs] = "null"
-        g_follow[lhs] = "null"
-    f.close()
-    return g, g_first, g_follow
-
-
-
-def getUserInput(debug=False):
-    if(debug):
-        file_path = "grammar.txt"
-        test_str = "abbcc"
-    else:
-        file_path = input("Enter file path, relative to the main.py\n")
-        test_str = str(
-            input("Enter test string, terminals seperated by space and appending $ eg abbcc\n"))
-
-    test_str=test_str+'$'
-
-    print()
-
-    return file_path, test_str
-
-def generateNonTerminals(grammar):
-    return list(grammar.keys())
-
-def generateTerminals(grammar):
-    allLexemes = {char for values in grammar.values() for item in values for char in item}
-    terminals = list(filter(isterminal, allLexemes)) + ["$"]
-    return terminals
 
 if __name__ == "__main__":
 

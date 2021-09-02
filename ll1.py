@@ -61,7 +61,7 @@ def parse(expr, parse_table, terminals, non_terminals):
                     flag=True
                 for item in action[2:]:
                     if flag:
-                        action='Matched $'
+                        action=' '
                         break
                     if(item != "`"):
                         stack.insert(i,item)

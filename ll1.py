@@ -5,11 +5,8 @@ def generate_parse_table(terminals, non_terminals, grammar, grammar_first, gramm
     
     for non_terminal in non_terminals:
         for terminal in terminals:
-            #print(terminal)
-            #print(grammar_first[non_terminal])
             if terminal in grammar_first[non_terminal]:
                 rule = get_rule(non_terminal, terminal, grammar, grammar_first)
-                #print(rule)
                 
             elif("`" in grammar_first[non_terminal] and terminal in grammar_follow[non_terminal]):
                 rule = non_terminal+"~`"
@@ -42,10 +39,6 @@ def parse(expr, parse_table, terminals, non_terminals):
     matched = "-"
     while(True):
         action = "-"
-        # if 'n' in stack:
-        #     stack=['$']
-        # if(orig_expr == matched and len(expr) == 1 ):
-        #     break
         try:
             if(stack[0] == expr[0] and stack[0] == "$"):
                 flag=True
@@ -69,7 +62,7 @@ def parse(expr, parse_table, terminals, non_terminals):
                 for item in action[2:]:
                     if flag:
                         action='Matched $'
-                        break             #################DHYAN SE DHEKHIYE...... YEHI HE WHO SUSKS
+                        break
                     if(item != "`"):
                         stack.insert(i,item)
                     i+=1

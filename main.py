@@ -19,19 +19,11 @@ if __name__ == "__main__":
     print()
 
     f = open(file_path)
+    # iterate each line and generate grammar dictionary
     for i in f:
+        # replace end line symbol
         i = i.replace("\n", "")
-        lhs = ""
-        rhs = ""
-        flag = 1
-        for j in i:
-            if(j=="~"):
-                flag = (flag+1)%2
-                continue
-            if(flag==1):
-                lhs += j
-            else:
-                rhs += j
+        lhs, rhs = i.split(sep="~")
         grammar = insert(grammar, lhs, rhs)
         grammar_first[lhs] = "null"
         grammar_follow[lhs] = "null"

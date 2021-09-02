@@ -12,7 +12,6 @@ def insert(grammar, lhs, rhs):
     return grammar
 
 def show_dict(dictionary):
-    # print(dictionary)
     for key in dictionary.keys():
         print(key+"  :  ", end = "")
         for item in dictionary[key]:

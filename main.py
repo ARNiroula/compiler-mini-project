@@ -82,6 +82,8 @@ if __name__ == "__main__":
     print(terminals)
 
     
+    table = Texttable(max_width=0)
+    table.header(["Parsing table"])
     parse_table = generate_parse_table(terminals, non_terminals, grammar, grammar_first, grammar_follow)
     display_parse_table(parse_table, terminals, non_terminals)
 

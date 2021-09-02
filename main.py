@@ -5,7 +5,7 @@ from follow import follow
 from ll1 import generate_parse_table, parse
 from texttable import Texttable
 
-DEBUG_MODE = True
+DEBUG_MODE = False
 
 def readFile(file_path):
     f = open(file_path)

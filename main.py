@@ -5,7 +5,7 @@ from follow import follow
 from ll1 import generate_parse_table, parse
 from texttable import Texttable
 
-DEBUG_MODE = True
+DEBUG_MODE = False
 
 if __name__ == "__main__":
 

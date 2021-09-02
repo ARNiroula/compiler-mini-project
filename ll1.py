@@ -24,8 +24,6 @@ def parse(expr, parse_table, terminals, non_terminals):
     stack = ["$"]
     stack.insert(0, non_terminals[0])
 
-    orig_expr = expr+""
-
     table = Texttable(max_width=0)
     table.header(['Matched', 'STACK', 'INPUT', 'ACTION'])
     table.add_row(['-', ''.join(stack), expr, '-'])

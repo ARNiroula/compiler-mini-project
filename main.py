@@ -41,5 +41,5 @@ if __name__ == "__main__":
 
     expr = test_str
 
-    print("\nParsing expression")
-    parse(expr, parse_table, terminals, non_terminals)
+    is_parsed = parse(expr, parse_table, terminals, non_terminals)
+    print_result(is_parsed, test_str) 

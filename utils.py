@@ -87,3 +87,8 @@ def generateTerminals(grammar):
     terminals = list(filter(isterminal, allLexemes)) + ["$"]
     return terminals
 
+def print_result(is_parsed, test_str):
+    if is_parsed:
+        print("\n\nInput expression '{input}' is accepted.".format(input=test_str[:-1]))
+    else:
+        print("\n\nInput expression '{input}' is NOT accepted.".format(input=test_str[:-1]))

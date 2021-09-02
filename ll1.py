@@ -26,31 +26,28 @@ def parse(expr, parse_table, terminals, non_terminals):
 
     table = Texttable(max_width=0)
     table.header(['Matched', 'STACK', 'INPUT', 'ACTION'])
-    table.add_row(['-', ''.join(stack), expr, '-'])
+    table.add_row(['', ''.join(stack), expr, ''])
 
-    matched = "-"
+    matched = ""
     while(True):
-        action = "-"
+        action = ""
         try:
-            if(stack[0] == expr[0] and stack[0] == "$"):
-                flag=True
+            if(stack[0] == expr[0] == "$"):
+                is_parsed=True
                 break
             elif(stack[0] == expr[0]):
-                if(matched == "-"):
-                    matched = expr[0]
-                else:    
-                    matched = matched + expr[0]
-                action = "Matched "+expr[0]
+                matched = matched + expr[0]
+                action = "Matched " + expr[0]
                 expr = expr[1:]
                 stack.pop(0)
             else:
                 action = parse_table[non_terminals.index(stack[0])][terminals.index(expr[0])]
                 if(len(action)==0):
-                    flag = False
+                    is_parsed = False
                     break
                 stack.pop(0)            
                 i = 0
-                flag=False
+                is_parsed=False
                 for item in action[2:]:
                     if(item != "`"):
                         stack.insert(i,item)
@@ -58,10 +55,10 @@ def parse(expr, parse_table, terminals, non_terminals):
 
             table.add_row([matched, ''.join(stack), expr, action])
         except:
-            flag = False
+            is_parsed = False
             break
+
+    print("\nParsing expression")
     print(table.draw())
-    if flag:
-        print("\n\nInput expression '{input}' is accepted.".format(input=original[:-1]))
-    else:
-        print("\n\nInput expression '{input}' is NOT accepted.".format(input=original[:-1]))
+
+    return is_parsed

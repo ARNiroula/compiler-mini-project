@@ -4,29 +4,45 @@ from first import first
 from follow import follow
 from ll1 import generate_parse_table, parse
 
-if __name__ == "__main__":
-    grammar = OrderedDict()
-    grammar_first = OrderedDict()
-    grammar_follow = OrderedDict()
+DEBUG_MODE = True
 
-    file_path = input("Enter file path, relative to the main.py\n")
-    # file_path = "grammar.txt"
-
-    test_str = str(
-        input("Enter test string, terminals seperated by space and appending $ eg abbcc\n"))
-    # test_str = "abbcc"
-    test_str=test_str+'$'
-    print()
-
+def readFile(file_path):
     f = open(file_path)
+    g= OrderedDict()
+    g_first = OrderedDict()
+    g_follow = OrderedDict()
     # iterate each line and generate grammar dictionary
     for i in f:
         # replace end line symbol
         i = i.replace("\n", "")
         lhs, rhs = i.split(sep="~")
-        grammar = insert(grammar, lhs, rhs)
-        grammar_first[lhs] = "null"
-        grammar_follow[lhs] = "null"
+        g = insert(g, lhs, rhs)
+        g_first[lhs] = "null"
+        g_follow[lhs] = "null"
+    f.close()
+    return g, g_first, g_follow
+
+
+
+def getUserInput(debug=False):
+    if(debug):
+        file_path = "grammar.txt"
+        test_str = "abbcc"
+    else:
+        file_path = input("Enter file path, relative to the main.py\n")
+        test_str = str(
+            input("Enter test string, terminals seperated by space and appending $ eg abbcc\n"))
+
+    test_str=test_str+'$'
+
+    print()
+
+    return file_path, test_str
+
+if __name__ == "__main__":
+
+    file_path, test_str = getUserInput(DEBUG_MODE)
+    grammar,  grammar_first, grammar_follow = readFile(file_path)
 
     print("Grammar\n")
     show_dict(grammar)

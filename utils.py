@@ -44,4 +44,3 @@ def display_parse_table(parse_table, terminals, non_terminals):
         for terminal in terminals:
             print(parse_table[non_terminals.index(non_terminal)][terminals.index(terminal)]+"\t\t", end = "")
         print("\n")
-

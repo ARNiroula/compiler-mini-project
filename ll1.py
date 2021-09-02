@@ -1,4 +1,5 @@
 from utils import get_rule
+from texttable import Texttable
 
 def generate_parse_table(terminals, non_terminals, grammar, grammar_first, grammar_follow):
     parse_table = [[""]*len(terminals) for i in range(len(non_terminals))]
@@ -11,12 +12,9 @@ def generate_parse_table(terminals, non_terminals, grammar, grammar_first, gramm
             elif("`" in grammar_first[non_terminal] and terminal in grammar_follow[non_terminal]):
                 rule = non_terminal+"~`"
                 
-            elif(terminal in grammar_follow[non_terminal]):
-                rule = "Sync"
-                
             else:
                 rule = ""
-                
+
             parse_table[non_terminals.index(non_terminal)][terminals.index(terminal)] = rule
 
     return(parse_table)
@@ -28,13 +26,9 @@ def parse(expr, parse_table, terminals, non_terminals):
 
     orig_expr = expr+""
 
-    print("\t\t\tMatched\t\t\tStack\t\t\tInput\t\t\tAction\n")
-    print("\t\t\t-\t\t\t", end = "")
-    for i in stack:
-        print(i,  end = "")
-    print("\t\t\t", end = "")
-    print(expr+"\t\t\t", end = "")
-    print("-")
+    table = Texttable(max_width=0)
+    table.header(['Matched', 'STACK', 'INPUT', 'ACTION'])
+    table.add_row(['-', ''.join(stack), expr, '-'])
 
     matched = "-"
     while(True):
@@ -53,31 +47,23 @@ def parse(expr, parse_table, terminals, non_terminals):
                 stack.pop(0)
             else:
                 action = parse_table[non_terminals.index(stack[0])][terminals.index(expr[0])]
+                if(len(action)==0):
+                    flag = False
+                    break
                 stack.pop(0)            
                 i = 0
                 flag=False
-                if action=='Sync':
-                    stack=['$']
-                    flag=True
                 for item in action[2:]:
-                    if flag:
-                        action='Matched $'
-                        break
                     if(item != "`"):
                         stack.insert(i,item)
                     i+=1
 
-            print("\t\t\t"+matched+"\t\t\t", end = "")
-            for i in stack:
-                print(i,  end = "")
-            print("\t\t\t", end = "")
-            print(expr+"\t\t\t", end = "")
-            print(action)
+            table.add_row([matched, ''.join(stack), expr, action])
         except:
             flag = False
             break
-
+    print(table.draw())
     if flag:
-        print("\n\nInput '{input}' is accepted".format(input=original[:-1]))
+        print("\n\nInput expression '{input}' is accepted.".format(input=original[:-1]))
     else:
-        print("\n\nInput '{input}' is not accepted".format(input=original[:-1]))
+        print("\n\nInput expression '{input}' is NOT accepted.".format(input=original[:-1]))

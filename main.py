@@ -3,6 +3,7 @@ from utils import show_dict, isterminal, display_parse_table, insert
 from first import first
 from follow import follow
 from ll1 import generate_parse_table, parse
+from texttable import Texttable
 
 DEBUG_MODE = True
 
@@ -80,7 +81,7 @@ if __name__ == "__main__":
     print(non_terminals)
     print(terminals)
 
-    print("\n\n\n\n\t\t\t\t\t\t\tParse Table\n\n")
+    
     parse_table = generate_parse_table(terminals, non_terminals, grammar, grammar_first, grammar_follow)
     display_parse_table(parse_table, terminals, non_terminals)
 
@@ -88,6 +89,5 @@ if __name__ == "__main__":
 #expr = input("Enter the expression ending with $ : ")
     expr = test_str
 
-    print("\n\n\n\n\n\n")
-    print("\t\t\t\t\t\t\tParsing Expression\n\n")
+    parse_table = generate_parse_table(terminals, non_terminals, grammar, grammar_first, grammar_follow)
     parse(expr, parse_table, terminals, non_terminals)

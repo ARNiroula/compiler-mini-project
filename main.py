@@ -39,6 +39,14 @@ def getUserInput(debug=False):
 
     return file_path, test_str
 
+def generateNonTerminals(grammar):
+    return list(grammar.keys())
+
+def generateTerminals(grammar):
+    allLexemes = {char for values in grammar.values() for item in values for char in item}
+    terminals = list(filter(isterminal, allLexemes)) + ["$"]
+    return terminals
+
 if __name__ == "__main__":
 
     file_path, test_str = getUserInput(DEBUG_MODE)
@@ -66,17 +74,8 @@ if __name__ == "__main__":
     show_dict(grammar_follow)
 
 
-    non_terminals = list(grammar.keys())
-    terminals = []
-
-    for i in grammar:
-        for rule in grammar[i]:
-            for char in rule:
-                
-                if(isterminal(char) and char not in terminals):
-                    terminals.append(char)
-
-    terminals.append("$")
+    non_terminals = generateNonTerminals(grammar) 
+    terminals = generateTerminals(grammar)
 
     print(non_terminals)
     print(terminals)

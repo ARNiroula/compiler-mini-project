@@ -19,8 +19,7 @@ if __name__ == "__main__":
         if(grammar_first[lhs] == "null"):
             grammar_first = first(lhs, grammar, grammar_first)
             
-    print()
-    print("First\n")
+    print("\nFirst\n")
     show_dict(grammar_first)
 
 
@@ -29,8 +28,7 @@ if __name__ == "__main__":
         if(grammar_follow[lhs] == "null"):
             grammar_follow = follow(lhs, grammar, grammar_follow, start, grammar_first)
             
-    print()
-    print("Follow\n")
+    print("\nFollow\n")
     show_dict(grammar_follow)
 
 
@@ -41,9 +39,7 @@ if __name__ == "__main__":
     display_parse_table(parse_table, terminals, non_terminals)
 
 
-#expr = input("Enter the expression ending with $ : ")
     expr = test_str
 
-    print()
-    print("Parsing expression")
+    print("\nParsing expression")
     parse(expr, parse_table, terminals, non_terminals)

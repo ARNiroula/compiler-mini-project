@@ -37,8 +37,7 @@ def get_rule(non_terminal, terminal, grammar, grammar_first):
                 return string
 
 def display_parse_table(parse_table, terminals, non_terminals):
-    print()
-    print("Parsing table:")
+    print("\nParsing table:")
     table = Texttable(max_width=0)
     table.header([""]+terminals)
     for non_terminal in non_terminals:

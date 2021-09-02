@@ -26,7 +26,6 @@ def show_dict(dictionary):
 
 def get_rule(non_terminal, terminal, grammar, grammar_first):
     for rhs in grammar[non_terminal]:
-        #print(rhs)
         for rule in rhs:
             if(rule == terminal):
                 string = non_terminal+"~"+rhs
